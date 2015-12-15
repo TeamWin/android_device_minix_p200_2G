@@ -1,0 +1,18 @@
+on early-init
+    insmod /sbin/dwc_otg.ko
+
+on init
+    # Mount configfs for ffs
+    mount configfs configfs /sys/kernel/config
+
+on fs
+
+on boot
+service remotecontrol /sbin/remotecfg /etc/remote.conf
+    oneshot
+
+service systemcontrol /sbin/systemcontrol_static /etc/mesondisplay.cfg
+    oneshot
+
+service console /sbin/sh
+    console
